@@ -1904,15 +1904,83 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
       pokemones: [],
+      pokemonesMostrados: [],
       search: '',
-      max: 15,
-      cant: 0
+      showModal: false,
+      titleModal: '',
+      max: 8,
+      cant: 0,
+      pokemon: {
+        weight: 0,
+        abilities: [],
+        image: '',
+        name: '',
+        types: [],
+        id: -1
+      }
     };
   },
   created: function created() {
@@ -1964,7 +2032,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee);
       }))();
     },
-    getCant: function getCant() {
+    getMoreInfo: function getMoreInfo(idOrName) {
       var _this2 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
@@ -1973,12 +2041,23 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             switch (_context2.prev = _context2.next) {
               case 0:
                 _context2.next = 2;
-                return axios__WEBPACK_IMPORTED_MODULE_1___default().get(_config_config_js__WEBPACK_IMPORTED_MODULE_2__.default + 'pokemon?').then(function (res) {
-                  _this2.cant = res.data != null & res.data.count != null ? res.data.count : 0;
-                }).then(function (res) {
-                  if (_this2.max < _this2.cant) {
-                    _this2.getPokemons(_this2.max);
+                return axios__WEBPACK_IMPORTED_MODULE_1___default().get("".concat(_config_config_js__WEBPACK_IMPORTED_MODULE_2__.default, "pokemon/").concat(idOrName)).then(function (res) {
+                  var pokemon = res.data;
+
+                  if (pokemon != null && pokemon.id != null) {
+                    _this2.pokemon.weight = pokemon.weight;
+                    _this2.pokemon.abilities = pokemon.abilities;
+                    _this2.pokemon.image = pokemon.sprites.front_default;
+                    _this2.pokemon.types = pokemon.types;
+                    _this2.pokemon.id = pokemon.id;
+                    _this2.pokemon.name = pokemon.species.name;
+                    _this2.titleModal = _this2.pokemon.id + ". " + _this2.pokemon.name;
+                    _this2.showModal = true;
+                  } else {
+                    _this2.mensajeError();
                   }
+                })["catch"](function (err) {
+                  _this2.mensajeError();
                 });
 
               case 2:
@@ -1987,6 +2066,43 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             }
           }
         }, _callee2);
+      }))();
+    },
+    mensajeError: function mensajeError() {
+      this.pokemon.id = -1;
+      this.titleModal = "Uups, algo ocurrió mal!";
+      this.showModal = true;
+    },
+    searchPokemon: function searchPokemon() {
+      var name = this.search.toLowerCase();
+
+      if (name.length > 0) {
+        this.getMoreInfo(name);
+      }
+    },
+    getCant: function getCant() {
+      var _this3 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                _context3.next = 2;
+                return axios__WEBPACK_IMPORTED_MODULE_1___default().get(_config_config_js__WEBPACK_IMPORTED_MODULE_2__.default + 'pokemon?').then(function (res) {
+                  _this3.cant = res.data != null & res.data.count != null ? res.data.count : 0;
+                }).then(function (res) {
+                  if (_this3.max < _this3.cant) {
+                    _this3.getPokemons(_this3.max);
+                  }
+                });
+
+              case 2:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3);
       }))();
     }
   }
@@ -6531,7 +6647,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.image[data-v-257bc4b8] {\n    width: 120px;\n    height: 120px;\n    background-color: white;\n    border-radius: 50%;\n    border: 3px solid lightslategrey;\n}\n.card[data-v-257bc4b8] {\n    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);\n    transition: .3s transform cubic-bezier(.155, 1.105, .295, 1.12), .3s box-shadow, .3s -webkit-transform cubic-bezier(.155, 1.105, .295, 1.12);\n    margin-bottom: 5px;\n    cursor: pointer;\n    border-radius: 30px;\n}\n.card[data-v-257bc4b8]:hover {\n    transform: scale(1.05);\n    box-shadow: 0 10px 20px rgba(0, 0, 0, .12), 0 4px 8px rgba(0, 0, 0, .06);\n    margin: 1px;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.image[data-v-257bc4b8] {\n    width: 120px;\n    height: 120px;\n    background-color: white;\n    border-radius: 50%;\n    border: 3px solid lightslategrey;\n}\n.card[data-v-257bc4b8],\n.modal-dialog[data-v-257bc4b8] {\n    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);\n    transition: .3s transform cubic-bezier(.155, 1.105, .295, 1.12), .3s box-shadow, .3s -webkit-transform cubic-bezier(.155, 1.105, .295, 1.12);\n    margin-bottom: 5px;\n    cursor: pointer;\n    border-radius: 30px;\n}\n.card[data-v-257bc4b8]:hover {\n    transform: scale(1.05);\n    box-shadow: 0 10px 20px rgba(0, 0, 0, .12), 0 4px 8px rgba(0, 0, 0, .06);\n    margin: 1px;\n}\n.modal-mask[data-v-257bc4b8] {\n    position: fixed;\n    z-index: 9998;\n    top: 0;\n    left: 0;\n    width: 100%;\n    height: 100%;\n    background-color: rgba(0, 0, 0, .5);\n    display: table;\n    transition: opacity .3s ease;\n}\n.modal-wrapper[data-v-257bc4b8] {\n    display: table-cell;\n    vertical-align: middle;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -38670,7 +38786,38 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container" }, [
-    _vm._m(0),
+    _c("div", { staticClass: "input-group rounded m-3" }, [
+      _c("input", {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model",
+            value: _vm.search,
+            expression: "search"
+          }
+        ],
+        staticClass: "form-control rounded",
+        attrs: { type: "search", placeholder: "Nombre" },
+        domProps: { value: _vm.search },
+        on: {
+          input: function($event) {
+            if ($event.target.composing) {
+              return
+            }
+            _vm.search = $event.target.value
+          }
+        }
+      }),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "input-group-text border-0 text-white bg-primary",
+          on: { click: _vm.searchPokemon }
+        },
+        [_c("i", { staticClass: "material-icons " }, [_vm._v("search")])]
+      )
+    ]),
     _vm._v(" "),
     _c(
       "div",
@@ -38680,83 +38827,253 @@ var render = function() {
           "div",
           { key: pokemon.id, staticClass: "col-md-6 col-lg-3" },
           [
-            _c("div", { staticClass: "card" }, [
-              _c("div", { staticClass: "text-white bg-danger" }, [
-                _c(
-                  "h5",
-                  {
-                    staticClass: "text-center card-title text-capitalize mt-2"
-                  },
-                  [_vm._v(_vm._s(pokemon.id) + ". " + _vm._s(pokemon.name))]
-                )
-              ]),
-              _vm._v(" "),
-              _c(
-                "div",
-                { staticClass: "text-white bg-dark" },
-                [
-                  _c("div", { staticClass: "text-center mb-2 mt-2" }, [
-                    _c("img", {
-                      staticClass: "image",
-                      attrs: { src: pokemon.image, alt: "Card image cap" }
-                    })
-                  ]),
-                  _vm._v(" "),
+            _c(
+              "div",
+              {
+                staticClass: "card",
+                on: {
+                  click: function($event) {
+                    return _vm.getMoreInfo(pokemon.id)
+                  }
+                }
+              },
+              [
+                _c("div", { staticClass: "text-white bg-danger" }, [
                   _c(
-                    "div",
+                    "h5",
                     {
-                      staticClass:
-                        "text-center list-group-item active border border-secondary rounded-0 bg-primary"
+                      staticClass: "text-center card-title text-capitalize mt-2"
                     },
-                    [
-                      pokemon.types.length == 1
-                        ? _c("div", [_c("h6", [_vm._v("Type:")])])
-                        : _c("div", [_c("h6", [_vm._v("Types")])])
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _vm._l(pokemon.types, function(type, index) {
-                    return _c("ul", { key: index, staticClass: "list-group" }, [
-                      _c(
-                        "li",
-                        {
-                          staticClass:
-                            "list-group-item text-dark border border-secondary rounded-0 text-center bg-info text-capitalize small"
-                        },
-                        [_c("strong", [_vm._v(_vm._s(type.type.name))])]
+                    [_vm._v(_vm._s(pokemon.id) + ". " + _vm._s(pokemon.name))]
+                  )
+                ]),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "text-white bg-dark" },
+                  [
+                    _c("div", { staticClass: "text-center mb-2 mt-2" }, [
+                      _c("img", {
+                        staticClass: "image",
+                        attrs: { src: pokemon.image, alt: "Card image cap" }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      {
+                        staticClass:
+                          "text-center list-group-item active border border-secondary rounded-0 bg-primary"
+                      },
+                      [
+                        pokemon.types.length == 1
+                          ? _c("div", [_c("h6", [_vm._v("Type:")])])
+                          : _c("div", [_c("h6", [_vm._v("Types")])])
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _vm._l(pokemon.types, function(type, index) {
+                      return _c(
+                        "ul",
+                        { key: index, staticClass: "list-group" },
+                        [
+                          _c(
+                            "li",
+                            {
+                              staticClass:
+                                "list-group-item text-dark border border-secondary rounded-0 text-center bg-info text-capitalize small"
+                            },
+                            [_c("strong", [_vm._v(_vm._s(type.type.name))])]
+                          )
+                        ]
                       )
-                    ])
-                  })
-                ],
-                2
-              )
-            ])
+                    })
+                  ],
+                  2
+                )
+              ]
+            )
           ]
         )
       }),
       0
-    )
+    ),
+    _vm._v(" "),
+    _vm.showModal
+      ? _c(
+          "div",
+          [
+            _c("transition", { attrs: { name: "model" } }, [
+              _c("div", { staticClass: "modal-mask" }, [
+                _c("div", { staticClass: "modal-wrapper" }, [
+                  _c("div", { staticClass: "modal-dialog" }, [
+                    _c("div", { staticClass: "modal-content bg-dark" }, [
+                      _c(
+                        "div",
+                        { staticClass: "modal-header bg-danger border-0" },
+                        [
+                          _c(
+                            "h4",
+                            {
+                              staticClass:
+                                "modal-title text-white text-capitalize"
+                            },
+                            [_vm._v(_vm._s(_vm.titleModal))]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "button",
+                            {
+                              staticClass: "border-0 bg-danger text-white",
+                              on: {
+                                click: function($event) {
+                                  _vm.showModal = false
+                                  _vm.search = ""
+                                }
+                              }
+                            },
+                            [
+                              _c("i", { staticClass: "material-icons" }, [
+                                _vm._v("close")
+                              ])
+                            ]
+                          )
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _vm.pokemon.id !== -1
+                        ? _c(
+                            "div",
+                            [
+                              _c("div", { staticClass: "modal-body" }, [
+                                _c(
+                                  "div",
+                                  { staticClass: "text-center mb-2 mt-2" },
+                                  [
+                                    _c("img", {
+                                      staticClass: "image",
+                                      attrs: {
+                                        src: _vm.pokemon.image,
+                                        alt: "Card image cap"
+                                      }
+                                    })
+                                  ]
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c(
+                                "div",
+                                {
+                                  staticClass:
+                                    "text-center list-group-item active border border-secondary rounded-0 bg-primary"
+                                },
+                                [_c("h6", [_vm._v("Weight")])]
+                              ),
+                              _vm._v(" "),
+                              _c("ul", { staticClass: "list-group" }, [
+                                _c(
+                                  "li",
+                                  {
+                                    staticClass:
+                                      "list-group-item text-dark border border-secondary rounded-0 text-center bg-info text-capitalize small"
+                                  },
+                                  [
+                                    _c("strong", [
+                                      _vm._v(_vm._s(_vm.pokemon.weight) + " ")
+                                    ])
+                                  ]
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c(
+                                "div",
+                                {
+                                  staticClass:
+                                    "text-center list-group-item active border border-secondary rounded-0 bg-primary"
+                                },
+                                [
+                                  _vm.pokemon.types.length == 1
+                                    ? _c("div", [_c("h6", [_vm._v("Type:")])])
+                                    : _c("div", [_c("h6", [_vm._v("Types")])])
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _vm._l(_vm.pokemon.types, function(type, index) {
+                                return _c(
+                                  "ul",
+                                  { key: index, staticClass: "list-group" },
+                                  [
+                                    _c(
+                                      "li",
+                                      {
+                                        staticClass:
+                                          "list-group-item text-dark border border-secondary rounded-0 text-center bg-info text-capitalize small"
+                                      },
+                                      [
+                                        _c("strong", [
+                                          _vm._v(_vm._s(type.type.name))
+                                        ])
+                                      ]
+                                    )
+                                  ]
+                                )
+                              }),
+                              _vm._v(" "),
+                              _c(
+                                "div",
+                                {
+                                  staticClass:
+                                    "text-center list-group-item active border border-secondary rounded-0 bg-primary"
+                                },
+                                [
+                                  _vm.pokemon.abilities.length == 1
+                                    ? _c("div", [
+                                        _c("h6", [_vm._v("Ability:")])
+                                      ])
+                                    : _c("div", [
+                                        _c("h6", [_vm._v("Abilities")])
+                                      ])
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _vm._l(_vm.pokemon.abilities, function(ability) {
+                                return _c("ul", { staticClass: "list-group" }, [
+                                  _c(
+                                    "li",
+                                    {
+                                      staticClass:
+                                        "list-group-item text-dark border border-secondary rounded-0 text-center bg-info text-capitalize small"
+                                    },
+                                    [
+                                      _c("strong", [
+                                        _vm._v(_vm._s(ability.ability.name))
+                                      ])
+                                    ]
+                                  )
+                                ])
+                              })
+                            ],
+                            2
+                          )
+                        : _c("div", [
+                            _c(
+                              "h4",
+                              { staticClass: "text-center text-white m-3" },
+                              [_vm._v("Pokemón no encontrado!")]
+                            )
+                          ])
+                    ])
+                  ])
+                ])
+              ])
+            ])
+          ],
+          1
+        )
+      : _vm._e()
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "input-group rounded m-3" }, [
-      _c("input", {
-        staticClass: "form-control rounded",
-        attrs: { type: "search", placeholder: "Nombre" }
-      }),
-      _vm._v(" "),
-      _c(
-        "button",
-        { staticClass: "input-group-text border-0 text-white bg-primary" },
-        [_c("i", { staticClass: "material-icons " }, [_vm._v("search")])]
-      )
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
