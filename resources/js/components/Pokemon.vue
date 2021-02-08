@@ -18,7 +18,7 @@
                     </div>
                     <div class="text-center list-group-item active border border-secondary rounded-0 bg-primary">
                         <div v-if="pokemon.types.length==1">
-                            <h6>Type:</h6>
+                            <h6>Type</h6>
                         </div>
                         <div v-else>
                             <h6>Types</h6>
@@ -57,7 +57,7 @@
 
                                 <div class="text-center list-group-item active border border-secondary rounded-0 bg-primary">
                                     <div v-if="pokemon.types.length==1">
-                                        <h6>Type:</h6>
+                                        <h6>Type</h6>
                                     </div>
                                     <div v-else>
                                         <h6>Types</h6>
@@ -68,7 +68,7 @@
                                 </ul>
                                 <div class="text-center list-group-item active border border-secondary rounded-0 bg-primary">
                                     <div v-if="pokemon.abilities.length==1">
-                                        <h6>Ability:</h6>
+                                        <h6>Ability</h6>
                                     </div>
                                     <div v-else>
                                         <h6>Abilities</h6>
@@ -103,7 +103,7 @@ export default {
         search: '',
         showModal: false,
         titleModal: '',
-        max: 8,
+        max: 15,
         cant: 0,
 
         pokemon: {

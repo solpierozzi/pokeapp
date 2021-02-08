@@ -1971,7 +1971,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       search: '',
       showModal: false,
       titleModal: '',
-      max: 8,
+      max: 15,
       cant: 0,
       pokemon: {
         weight: 0,
@@ -38867,7 +38867,7 @@ var render = function() {
                       },
                       [
                         pokemon.types.length == 1
-                          ? _c("div", [_c("h6", [_vm._v("Type:")])])
+                          ? _c("div", [_c("h6", [_vm._v("Type")])])
                           : _c("div", [_c("h6", [_vm._v("Types")])])
                       ]
                     ),
@@ -38993,7 +38993,7 @@ var render = function() {
                                 },
                                 [
                                   _vm.pokemon.types.length == 1
-                                    ? _c("div", [_c("h6", [_vm._v("Type:")])])
+                                    ? _c("div", [_c("h6", [_vm._v("Type")])])
                                     : _c("div", [_c("h6", [_vm._v("Types")])])
                                 ]
                               ),
@@ -39027,9 +39027,7 @@ var render = function() {
                                 },
                                 [
                                   _vm.pokemon.abilities.length == 1
-                                    ? _c("div", [
-                                        _c("h6", [_vm._v("Ability:")])
-                                      ])
+                                    ? _c("div", [_c("h6", [_vm._v("Ability")])])
                                     : _c("div", [
                                         _c("h6", [_vm._v("Abilities")])
                                       ])
